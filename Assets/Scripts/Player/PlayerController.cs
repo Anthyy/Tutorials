@@ -11,29 +11,20 @@ public class PlayerController : MonoBehaviour
 {
     public NavMeshAgent agent; // reference to NavMeshAgent component
 
-    private Vector3 targetPos;
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // If the targetPos is valid (is not zero)
-        if(targetPos.magnitude > 0)
-        {
-            // Follow the taret!
-            agent.SetDestination(targetPos);
-        }
-    }
-
     // Call this to tell agent where to go!
-    public void SetTarget(Vector3 target)
+    public void SetDestination(Vector3 target)
     {
-        // Set the new target
-        targetPos = target;
+        // Create a new instance of path to contain new path
+        NavMeshPath path = new NavMeshPath();
+        // Calculate the new path to target
+        if (agent.CalculatePath(target, path))
+        {
+            // If the path generated is completed (not partial)
+            if (path.status == NavMeshPathStatus.PathComplete)
+            {
+                // Tell the agent to go to target
+                agent.SetDestination(target);
+            }
+        }       
     }
 }

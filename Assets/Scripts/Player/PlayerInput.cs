@@ -31,11 +31,8 @@ public class PlayerInput : MonoBehaviour
             if (Physics.Raycast(camRay, out hit, 1000f))
             {
                 // Update the target with the thing we hit (the point)
-                controller.SetTarget(hit.point);
+                controller.SetDestination(hit.point);
             }
-        }
-
-
-        
+        }       
     }
 }
